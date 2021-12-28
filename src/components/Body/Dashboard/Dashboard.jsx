@@ -4,20 +4,49 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const { userId, token } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
+
+  const [stripeToken, setStripeToken] = useState(null);
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await axios.post(
+          "https://new-health-coach.azurewebsites.net/api/payment",
+          {
+            tokenId: stripeToken.id,
+            amount: 25000,
+          }
+        );
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken]);
+
+  const KEY =
+    "pk_test_51JvwJtAmkoGonD82vkkiVuJwbBdZcG2k4QH16OQO5nRI0IVcM71pwOGmHxriCTZXDKTfUKqi8cyjJ4XQ2Ebzo0au00e0vKIQOh";
+
   useEffect(() => {
     const makeReq = async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/findSingleOrder/${userId}`,
+        `https://new-health-coach.azurewebsites.net/api/findSingleOrder/${userId}`,
         {
           headers: { authentication: `Bearer ${token}` },
         }
       );
       setData(res.data);
+      console.log(res.data);
       setLoading(false);
     };
     makeReq();
@@ -27,7 +56,7 @@ const Dashboard = () => {
     setLoading(true);
     const makeReq = async () => {
       const res = await axios.delete(
-        `http://localhost:5000/api/deleteOrder/${orderId}`,
+        `https://new-health-coach.azurewebsites.net/api/deleteOrder/${orderId}`,
         {
           headers: { authentication: `Bearer ${token}` },
         }
@@ -58,7 +87,7 @@ const Dashboard = () => {
           <h1 className="my-5"> Your Appointment </h1>
           <div className="row">
             {data.map((orders) => (
-              <div className="col-sm-6 col-md-6 col-lg-4">
+              <div key={orders.address} className="col-sm-6 col-md-6 col-lg-4">
                 <div className="card bg-white p-3 mb-4 shadow">
                   <div className="d-flex justify-content-between mb-4">
                     <div className="user-info">
@@ -93,9 +122,41 @@ const Dashboard = () => {
                         <small className="ml-1">{orders.address.date}</small>
                       </h5>
                     </div>
-                    <Link to="/" className="text-success font-weight-bold">
-                      PAY
-                    </Link>
+                    <div>
+                      {stripeToken ? (
+                        <span
+                          style={{
+                            margin: "0 auto",
+                            backgroundColor: "black",
+                            color: "white",
+                            padding: "10px",
+                          }}
+                        >
+                          Paid
+                        </span>
+                      ) : (
+                        <StripeCheckout
+                          billingAddress
+                          shippingAddress
+                          amount={2000}
+                          description="You total is $20"
+                          name="Awal shop"
+                          token={onToken}
+                          stripeKey={KEY}
+                        >
+                          <button
+                            style={{
+                              margin: "0 auto",
+                              backgroundColor: "black",
+                              color: "white",
+                              padding: "10px",
+                            }}
+                          >
+                            Pay Now
+                          </button>
+                        </StripeCheckout>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -5,7 +5,7 @@ const useServiceces = () => {
   const [loading, setLoading] = useState(true);
   // Fetching api from github page
   useEffect(() => {
-    fetch("http://localhost:5000/api/findAllProduct")
+    fetch("https://new-health-coach.azurewebsites.net/api/findAllProduct")
       .then((resp) => resp.json())
       .then((data) => {
         setInfo(data);

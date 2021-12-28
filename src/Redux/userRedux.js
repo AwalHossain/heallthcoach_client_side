@@ -5,7 +5,7 @@ import axios from "axios";
 export const signUpUser = createAsyncThunk("users/signup", async (body) => {
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/auth/register",
+      "https://new-health-coach.azurewebsites.net/api/auth/register",
       body
     );
     console.log(res.data);
@@ -19,7 +19,10 @@ export const signUpUser = createAsyncThunk("users/signup", async (body) => {
 
 export const signIn = createAsyncThunk("users/sginin", async (body) => {
   try {
-    const res = await axios.post("http://localhost:5000/api/auth/login", body);
+    const res = await axios.post(
+      "https://new-health-coach.azurewebsites.net/api/auth/login",
+      body
+    );
     console.log(res.data);
     return res.data;
   } catch (error) {

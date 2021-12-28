@@ -16,7 +16,7 @@ const Details = () => {
     const makeRequest = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/findUserProduct/${serviceId}`,
+          `https://new-health-coach.azurewebsites.net/api/findUserProduct/${serviceId}`,
           {
             headers: { authentication: `Bearer ${token}` },
           }

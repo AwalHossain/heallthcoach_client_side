@@ -18,6 +18,7 @@ import Details from "./components/Details/Details";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Dashboard from "./components/Body/Dashboard/Dashboard";
+import Payment from "./components/Payment/Payment";
 function App() {
   const { token } = useSelector((state) => state.user);
 
@@ -51,6 +52,9 @@ function App() {
           </Route>
           <Route path="/package">
             <Package></Package>
+          </Route>
+          <Route path="/payment">
+            <Payment></Payment>
           </Route>
           <Route path="/login">
             {token ? <Redirect to="/" /> : <Login></Login>}

@@ -37,7 +37,7 @@ const Appointment = ({ service }) => {
     const makeReq = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:5000/api/order",
+          "https://new-health-coach.azurewebsites.net/api/order",
           appointment,
           {
             headers: { authentication: `Bearer ${token}` },
@@ -46,7 +46,7 @@ const Appointment = ({ service }) => {
         console.log(res.data.userId);
         if (res.data) {
           setLoading(false);
-          history.push("/");
+          history.push("/dashboard");
         }
       } catch (err) {
         console.log(err);
@@ -78,6 +78,7 @@ const Appointment = ({ service }) => {
               <label>
                 Phone number
                 <input
+                  required
                   onBlur={(e) => setNumber(e.target.value)}
                   type="tel"
                   name="phone"
