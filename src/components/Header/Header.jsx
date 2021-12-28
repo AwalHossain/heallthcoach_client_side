@@ -41,9 +41,13 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white" to="/appointment">
-                  Appointment
-                </Link>
+                {displayName ? (
+                  <Link className="nav-link text-white" to="/dashboard">
+                    Dashboard
+                  </Link>
+                ) : (
+                  " "
+                )}
               </li>
               <li className="nav-item">
                 <Link className="nav-link text-white" to="/blog">

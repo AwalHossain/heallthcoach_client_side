@@ -17,9 +17,10 @@ import NotFound from "./components/NotFound/NotFound";
 import Details from "./components/Details/Details";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import Dashboard from "./components/Body/Dashboard/Dashboard";
 function App() {
-  const { mail } = useSelector((state) => state.user);
-  console.log(mail);
+  const { token } = useSelector((state) => state.user);
+
   useEffect(() => {}, []);
   return (
     <div className="">
@@ -52,7 +53,10 @@ function App() {
             <Package></Package>
           </Route>
           <Route path="/login">
-            {mail ? <Redirect to="/" /> : <Login></Login>}
+            {token ? <Redirect to="/" /> : <Login></Login>}
+          </Route>
+          <Route path="/dashboard">
+            {token ? <Dashboard /> : <Redirect to="/login" />}
           </Route>
           <Route path="/register">
             <Register></Register>

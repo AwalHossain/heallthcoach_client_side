@@ -31,6 +31,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     token: "",
+    userId: "",
     loading: false,
     displayName: "",
     mail: "",
@@ -39,6 +40,8 @@ export const userSlice = createSlice({
   reducers: {
     logOut: (state, action) => {
       state.mail = undefined;
+      state.token = undefined;
+      state.userId = undefined;
       state.displayName = undefined;
       localStorage.removeItem("persist:root");
     },
@@ -51,6 +54,8 @@ export const userSlice = createSlice({
       } else {
         state.mail = action.payload.email;
         state.displayName = action.payload.username;
+        state.userId = action.payload._id;
+        state.token = action.payload.accessToken;
         state.error = " ";
       }
 
@@ -72,6 +77,7 @@ export const userSlice = createSlice({
       } else {
         state.mail = action.payload.email;
         state.displayName = action.payload.username;
+        state.userId = action.payload._id;
         state.token = action.payload.accessToken;
         state.error = " ";
       }

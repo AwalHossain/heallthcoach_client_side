@@ -4,7 +4,6 @@ import Service from "../Service/Service";
 const Services = () => {
   // Custom hook being used here
   const { info, loading } = useServiceces();
-  console.log(loading, info);
   return (
     // Services
     <div>

@@ -44,24 +44,10 @@ const Register = () => {
     history.push("/");
   }
   // Registration with email, password & name
-  const { register } = useAuth();
   const handleRegistration = (e) => {
     e.preventDefault();
-    // register(email, password)
-    //   .then(async (result) => {
-    //     // Signed in
-    //     await setUserName();
-    //     history.push(path);
-    //     window.location.reload();
-
-    // fetch("http://localhost:5000/api/auth/register")
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data));
     dispatch(signUpUser({ username, email, password }));
   };
-  // const setUserName = () => {
-  //   updateProfile(auth.currentUser, { displayName: name }).then((result) => {});
-  // };
 
   return (
     <div className="w-50 mx-auto my-5">
