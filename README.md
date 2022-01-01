@@ -11,9 +11,9 @@ Your Transformation is our passion & We are your personal trainers, trained nutr
 
 3. User can delete their appoinment before payment
 
-4.State management such as login and registration are handled by Redux.
+4. State management such as login and registration are handled by Redux.
 
-5.Jason web tokens are used to secure login and registration.
+5. Jason web tokens are used to secure login and registration.
 
 6. Server is hosted microsoft azure.
 
